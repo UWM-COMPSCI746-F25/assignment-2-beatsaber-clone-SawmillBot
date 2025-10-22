@@ -1,0 +1,52 @@
+[gd_scene load_steps=9 format=3 uid="uid://b1n0v6d1b3et7"]
+
+[ext_resource type="Script" uid="uid://cxlmsr6851hfh" path="res://main.gd" id="1_272bh"]
+[ext_resource type="Script" uid="uid://bmveb4p5hmk2g" path="res://xr_origin_3d.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://46h2i6gsvyqc" path="res://left_controller.gd" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://vnj08dxpf3uf" path="res://laser_sword.tscn" id="3_1bvp3"]
+[ext_resource type="Script" uid="uid://dci6smev7tlmg" path="res://right_controller.gd" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://cphg8wlv5q7ra" path="res://cube.tscn" id="5_lquwl"]
+[ext_resource type="Script" uid="uid://bxhqrglwvbi6v" path="res://cube_spawner.gd" id="7_272bh"]
+
+[sub_resource type="Environment" id="Environment_ig7tw"]
+glow_enabled = true
+glow_intensity = 1.33
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_272bh")
+left_sword_path = NodePath("XROrigin3D/LeftController/LaserSword")
+right_sword_path = NodePath("XROrigin3D/RightController/LaserSword")
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+script = ExtResource("1_ig7tw")
+
+[node name="LeftController" type="XRController3D" parent="XROrigin3D"]
+tracker = &"left_hand"
+script = ExtResource("2_0xm2m")
+sword_path = NodePath("LaserSword")
+toggle_action = "left_toggle"
+
+[node name="LaserSword" parent="XROrigin3D/LeftController" instance=ExtResource("3_1bvp3")]
+sword_color = Color(0.999844, 0.352188, 0.28533, 1)
+
+[node name="RightController" type="XRController3D" parent="XROrigin3D"]
+tracker = &"right_hand"
+script = ExtResource("3_h2yge")
+sword_path = NodePath("LaserSword")
+toggle_action = "right_toggle"
+
+[node name="LaserSword" parent="XROrigin3D/RightController" instance=ExtResource("3_1bvp3")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="XROrigin3D"]
+environment = SubResource("Environment_ig7tw")
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+far = 105.19
+
+[node name="DestroySFX" type="AudioStreamPlayer3D" parent="XROrigin3D"]
+
+[node name="cube" parent="." instance=ExtResource("5_lquwl")]
+
+[node name="CubeSpawner" type="Node3D" parent="."]
+script = ExtResource("7_272bh")
+cube_scene = ExtResource("5_lquwl")

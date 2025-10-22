@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://vnj08dxpf3uf"]
+
+[ext_resource type="Script" uid="uid://ckugfe5665re2" path="res://laser_sword.gd" id="1_8ibi8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_hydui"]
+size = Vector3(0.02, 0.02, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ibi8"]
+shading_mode = 0
+albedo_color = Color(0, 0.848679, 0.907051, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lygtw"]
+size = Vector3(0.02, 0.02, 1)
+
+[node name="LaserSword" type="Area3D"]
+script = ExtResource("1_8ibi8")
+
+[node name="Blade" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+mesh = SubResource("BoxMesh_hydui")
+surface_material_override/0 = SubResource("StandardMaterial3D_8ibi8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+shape = SubResource("BoxShape3D_lygtw")

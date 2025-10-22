@@ -54,4 +54,3 @@ Please test that your submission meets these requirements.  For example, after y
 ## Acknowledgements
 
 This assignment is a modified version of an assignment from a class taught by Professor Evan Suma Rosenberg at the University of Minnesota.
-
